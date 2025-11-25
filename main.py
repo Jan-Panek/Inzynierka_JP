@@ -3,10 +3,10 @@ from rp2 import PIO, StateMachine, asm_pio
 import time
 
 # --- parametry ---
-MAX_LEN = 100                 # liczba "slotow" w ramce
+MAX_LEN = 50                 # liczba "slotow" w ramce
 FREQ_HZ = 100_000_000        # zegar PIO (slot = 1/FREQ_HZ)
 PIN_START = 10               # START = okno HIGH N/MAX_LEN (PIO) — HIGH -> LOW
-PIN_STOP = 20               # STOP  = LOW prefix -> HIGH reszta
+PIN_STOP = 20                # STOP  = LOW prefix -> HIGH reszta
 AUTO_DEMO = False            # auto: krok co 1 s na obu kanalach
 
 # --- PIO: START — HIGH przez Y, potem LOW przez X ---
@@ -21,7 +21,7 @@ def win_pwm_packed_set():
     mov(x, osr)            # X = packed
 
     wrap_target()
-    # pobierz nowe slowo, jesli jest
+    # pobierz nowe slowo, jeśli jest
     mov(osr, x)
     pull(noblock)
     mov(x, osr)
@@ -67,7 +67,7 @@ def win_pwm_packed_low_high():
     mov(x, osr)            # X = packed
 
     wrap_target()
-    # pobierz nowe slowo, jesli jest
+    # pobierz nowe slowo, jeśli jest
     mov(osr, x)
     pull(noblock)
     mov(x, osr)
@@ -78,11 +78,11 @@ def win_pwm_packed_low_high():
     # Y = low_len (high16)
     mov(osr, x)
     out(null, 16)          # >>16
-    mov(y, osr)            # Y = high16(packed) = dlugosć LOW prefix
+    mov(y, osr)            # Y = high16(packed) = dlugość LOW prefix
 
     # X = high_len (low16)
     mov(osr, isr)
-    out(x, 16)             # X = low16(packed) = dlugosć HIGH reszta
+    out(x, 16)             # X = low16(packed) = dlugość HIGH reszta
 
     # LOW przez Y slotow (zero-safe)
     jmp(not_y, "after_low")
@@ -108,11 +108,9 @@ sm_start = StateMachine(0, win_pwm_packed_set,
 sm_stop = StateMachine(4, win_pwm_packed_low_high,
                        freq=FREQ_HZ, set_base=Pin(PIN_STOP))
 
-# --- dlugosci w slotach ---
-# START: ile slotow HIGH (0..MAX_LEN) — START ma 1 wysoki na starcie
-len_start = 1
-# STOP : ile slotow LOW na poczatku (0..MAX_LEN) — STOP ma 1 niski na starcie
-len_stop = 1
+# --- dlugości w slotach ---
+len_start = 0   # START: ile slotow HIGH (0..MAX_LEN)
+len_stop = 0   # STOP : ile slotow LOW na poczatku (0..MAX_LEN)
 
 
 def _send_start():
@@ -155,9 +153,10 @@ try:
         if AUTO_DEMO:
             if time.ticks_diff(time.ticks_ms(), last_tick) >= 1000:
                 last_tick = time.ticks_ms()
-                # rosnie LOW-prefix STOP
+                # krok na obu kanalach
+                # rośnie LOW-prefix STOP
                 len_stop = (len_stop + 1) % (MAX_LEN + 1)
-                # rosnie HIGH START
+                # rośnie HIGH START
                 len_start = (len_start + 1) % (MAX_LEN + 1)
                 _send_stop()
                 _send_start()
