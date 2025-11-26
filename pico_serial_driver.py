@@ -60,17 +60,17 @@ class SenderGUI(tk.Tk):
         self.port_cb = ttk.Combobox(
             top, width=20, state="readonly", values=self.list_ports())
         self.port_cb.pack(side="left", padx=6)
-        ttk.Button(top, text="Odświez", command=self.refresh_ports).pack(
+        ttk.Button(top, text="Odśwież", command=self.refresh_ports).pack(
             side="left", padx=6)
 
-        self.auto_flash_var = tk.BooleanVar(value=False)
-        ttk.Checkbutton(top, text="Auto-wgraj przy Polacz",
+        self.auto_flash_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(top, text="Auto-wgraj przy Połacz",
                         variable=self.auto_flash_var).pack(side="left", padx=10)
 
-        self.btn_connect = ttk.Button(top, text="Polacz", command=self.connect)
+        self.btn_connect = ttk.Button(top, text="Połacz", command=self.connect)
         self.btn_connect.pack(side="left", padx=6)
         self.btn_disconnect = ttk.Button(
-            top, text="Rozlacz", command=self.disconnect, state="disabled")
+            top, text="Rozłacz", command=self.disconnect, state="disabled")
         self.btn_disconnect.pack(side="left", padx=6)
 
         # ===== Wgrywanie pliku =====
@@ -81,7 +81,7 @@ class SenderGUI(tk.Tk):
         self.file_entry = ttk.Entry(flash, width=70)
         self.file_entry.insert(0, DEFAULT_FILE)
         self.file_entry.pack(side="left", padx=6)
-        ttk.Button(flash, text="Przegladaj…",
+        ttk.Button(flash, text="Przegladąj…",
                    command=self.browse_file).pack(side="left", padx=6)
         self.btn_flash = ttk.Button(
             flash, text="Wgraj na Pico", command=self.flash_now)
@@ -94,10 +94,10 @@ class SenderGUI(tk.Tk):
         self.txt.pack(fill="both", expand=True)
         self.log(
             "Sterowanie:\n"
-            "- START (GPIO10): i = HIGH + (dluzsze HIGH), k = HIGH - (krotsze HIGH)\n"
-            "- STOP  (GPIO20): w = LOW + (dluzszy poczatkowy LOW), s = LOW - (krotszy LOW)\n"
+            "- START (GPIO10): i = HIGH + (dłuższe HIGH), k = HIGH - (krótsze HIGH)\n"
+            "- STOP  (GPIO20): w = LOW + (dłuższy początkowy LOW), s = LOW - (krótszy LOW)\n"
             "- a = AUTO, ^C = przerwij, Ctrl+D = restart\n\n"
-            "Uwaga: program na Pico musi czytac linie (input()) i reagowac na i/k/w/s/a.\n"
+            "Uwaga: program na Pico musi czytać linie (input()) i reagować na i/k/w/s/a.\n"
         )
 
         # ===== Sterowanie =====
@@ -106,21 +106,21 @@ class SenderGUI(tk.Tk):
 
         # STOP (LOW prefix)
         stop_frame = ttk.LabelFrame(
-            bottom, text="STOP (GPIO20) — LOW prefix → HIGH reszta")
+            bottom, text="Sygnał STOP (GPIO20)")
         stop_frame.pack(side="left", padx=8, pady=4)
-        self.btn_w = ttk.Button(stop_frame, text="w  (LOW +)", width=16,
+        self.btn_w = ttk.Button(stop_frame, text="Krok do przodu (w)", width=18,
                                 command=lambda: self.send_line("w"), state="disabled")
-        self.btn_s = ttk.Button(stop_frame, text="s  (LOW -)", width=16,
+        self.btn_s = ttk.Button(stop_frame, text="krok w tył  (s)", width=16,
                                 command=lambda: self.send_line("s"), state="disabled")
         self.btn_w.grid(row=0, column=0, padx=6, pady=8)
         self.btn_s.grid(row=0, column=1, padx=6, pady=8)
 
         # START (HIGH okno)
-        start_frame = ttk.LabelFrame(bottom, text="START (GPIO10) — HIGH okno")
+        start_frame = ttk.LabelFrame(bottom, text="Sygnał START (GPIO10)")
         start_frame.pack(side="left", padx=8, pady=4)
-        self.btn_i = ttk.Button(start_frame, text="i  (HIGH +)", width=16,
+        self.btn_i = ttk.Button(start_frame, text="Krok do przodu  (i)", width=18,
                                 command=lambda: self.send_line("i"), state="disabled")
-        self.btn_k = ttk.Button(start_frame, text="k  (HIGH -)", width=16,
+        self.btn_k = ttk.Button(start_frame, text="Krok w tył  (k)", width=16,
                                 command=lambda: self.send_line("k"), state="disabled")
         self.btn_i.grid(row=0, column=0, padx=6, pady=8)
         self.btn_k.grid(row=0, column=1, padx=6, pady=8)
@@ -182,7 +182,7 @@ class SenderGUI(tk.Tk):
                 self.port_cb.current(vals.index(DEFAULT_PORT))
             else:
                 self.port_cb.current(0)
-        self.log("🔄 Odświezono liste portow.\n")
+        self.log("🔄 Odświeżono liste portow.\n")
 
     def log(self, s: str):
         self.txt.insert("end", s)
@@ -209,7 +209,7 @@ class SenderGUI(tk.Tk):
     def connect(self):
         port = self.port_cb.get()
         if not port:
-            messagebox.showerror("Blad", "Wybierz port COM.")
+            messagebox.showerror("Bład", "Wybierz port COM.")
             return
 
         # (opcjonalnie) auto-wgraj
@@ -219,7 +219,7 @@ class SenderGUI(tk.Tk):
             self.log(out + ("\n" if not out.endswith("\n") else ""))
             if not ok:
                 self.log(
-                    "⚠️ Auto-wgranie nie powiodlo sie. Mozesz uzyć „Wgraj na Pico”.\n")
+                    "⚠️ Auto-wgranie nie powiodło się. Możesz użyć „Wgraj na Pico”.\n")
 
         try:
             self.ser = serial.Serial(port, BAUD, timeout=0.05, write_timeout=1)
@@ -228,7 +228,7 @@ class SenderGUI(tk.Tk):
             time.sleep(0.2)
             self.ser.reset_input_buffer()
             self.ser.reset_output_buffer()
-            self.log(f"🔌 Polaczono z {port} @ {BAUD}\n")
+            self.log(f"🔌 Połaczono z {port} @ {BAUD}\n")
         except serial.SerialException as e:
             self.ser = None
             messagebox.showerror("Port zajety / brak dostepu", str(e))
