@@ -13,3 +13,9 @@ main.py program głwony
 mainz.py lekko zmodyfikowany program głowny 
 
 Oba programy powinny nadawać się do testowania płytki.
+
+Przydatne linki do Pobrania potrzebnego środowiska:
+
+https://www.python.org/downloads/
+
+https://git-scm.com/
