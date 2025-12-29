@@ -27,12 +27,11 @@ Uruchamiamy poprzez włączenie skryptu start_GUI.bat.
 - Kod wgrany ale nie włącza się → wcisnąc Restart lub (Ctrl+D)
 - pip not found → przeinstalować Python z zaznaczonym Path 
 
-Opis programów:
+## Opis programów:
 main_TDC.py program dla ćwiczenia 1 i 2  
 main_Vernier_TDC.py program dla ćwiczenia 3 
 
-
-Przydatne linki do Pobrania potrzebnego środowiska:
-
+## LINKI
+-Przydatne linki do Pobrania potrzebnego środowiska:
 https://www.python.org/
 
