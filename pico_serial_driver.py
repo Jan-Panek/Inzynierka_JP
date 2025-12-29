@@ -19,7 +19,7 @@ BAUD = 115200
 # Domyślne ściezki/port
 DEFAULT_PORT = "COM3"
 # plik do wgrania jako :main.py
-DEFAULT_FILE = r"C:\Users\Jon\Desktop\inzynierka\maing.py"
+DEFAULT_FILE = r"C:/Users/Jon/Desktop/Inzynierka_JP/main_TDC.py"
 
 
 def run_mpremote_copy(port: str, src_file: str):
