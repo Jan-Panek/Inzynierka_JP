@@ -4,7 +4,7 @@ import time
 
 # --- parametry ---
 MAX_LEN = 50                 # liczba "slotow" w ramce
-FREQ_HZ = 100_000_000         # zegar PIO (slot = 1/FREQ_HZ)
+FREQ_HZ = 115_000_000         # zegar PIO (slot = 1/FREQ_HZ)
 PIN_START = 10                  # START = HIGH -> LOW
 PIN_STOP = 20                  # STOP  = LOW prefix -> HIGH reszta
 PIN_SYNC = 2                   # wspólny pin synchronizacji (LOW->HIGH = start)
@@ -19,7 +19,13 @@ AUTO_DEMO = False
 )
 def win_pwm_packed_set_sync():
     wait(1, pin, 0)          # czekaj na SYNC (pin = in_base + 0)
-
+    
+    nop()
+    nop()
+    nop()
+    nop()
+    nop()
+    
     pull()                   # pierwsze słowo
     mov(x, osr)              # X = packed
 
@@ -145,7 +151,7 @@ sm_start.active(1)
 time.sleep_us(5)           # krótki oddech po active()
 sync.value(1)              # wspólny start
 time.sleep_us(2)
-sync.value(0)              # opcjonalnie wróć na LOW
+sync.value(1)              
 
 # --- info ---
 frame_hz = FREQ_HZ // MAX_LEN
