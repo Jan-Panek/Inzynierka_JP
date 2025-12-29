@@ -19,7 +19,7 @@ BAUD = 115200
 # Domyślne ściezki/port
 DEFAULT_PORT = "COM3"
 # plik do wgrania jako :main.py
-DEFAULT_FILE = r"C:/Users/Jon/Desktop/Inzynierka_JP/main_TDC.py"
+DEFAULT_FILE = r"C:/Users/Student/Desktop/Inzynierka_JP/Skrypty/main_TDC.py"
 
 
 def run_mpremote_copy(port: str, src_file: str):
@@ -97,7 +97,7 @@ class SenderGUI(tk.Tk):
             "- START (GPIO10): i = HIGH + (dłuższe HIGH), k = HIGH - (krótsze HIGH)\n"
             "- STOP  (GPIO20): w = LOW + (dłuższy początkowy LOW), s = LOW - (krótszy LOW)\n"
             "- a = AUTO, ^C = przerwij, Ctrl+D = restart\n\n"
-            "Uwaga: program na Pico musi czytać linie (input()) i reagować na i/k/w/s/a.\n"
+
         )
 
         # ===== Sterowanie =====
