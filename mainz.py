@@ -4,7 +4,7 @@ import time
 
 # --- parametry ---
 MAX_LEN = 50                 # liczba "slotow" w ramce
-FREQ_HZ = 100_000_000        # zegar PIO (slot = 1/FREQ_HZ)
+FREQ_HZ = 115_000_000        # zegar PIO (slot = 1/FREQ_HZ)
 PIN_START = 10                 # START = HIGH -> LOW
 PIN_STOP = 20                 # STOP  = LOW prefix -> HIGH reszta
 PIN_SYNC = 2                  # wspólny pin synchronizacji (LOW->HIGH = start)
@@ -156,7 +156,7 @@ sm_start.active(1)
 time.sleep_us(5)
 sync.value(1)
 time.sleep_us(2)
-sync.value(0)              # opcjonalnie wróć na LOW
+sync.value(1)              
 
 # --- info ---
 frame_hz = FREQ_HZ // MAX_LEN
