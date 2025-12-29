@@ -32,6 +32,6 @@ main_TDC.py program dla ćwiczenia 1 i 2
 main_Vernier_TDC.py program dla ćwiczenia 3 
 
 ## LINKI
--Przydatne linki do Pobrania potrzebnego środowiska:
-https://www.python.org/
+Przydatne linki do Pobrania potrzebnego środowiska:
+- https://www.python.org/
 
