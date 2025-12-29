@@ -7,11 +7,11 @@
 1. Instalacja Python 3.14 (upewnij się aby zaznaczyć **Add Python to PATH**).
 2. Sklonuj lub pobierz to repostorium.
 3. Zainstaluj potrzebne rozszerzenia Python'a:
-Po zainstalowaniu Pythona, możemy uruchomić skrypt instalacja_rozszerzen.bat.
+Po zainstalowaniu Pythona, możemy uruchomić skrypt **instalacja_rozszerzen.bat**.
 Musimy go włączyć tylko raz i nasze środowisko powinno być gotowe do pracy.
 
 ## Uruchamianie aplikacji
-Uruchamiamy poprzez włączenie skryptu start_GUI.bat.
+Uruchamiamy poprzez włączenie skryptu **start_GUI.bat**.
 
 ## Instrukcja obsługi:
 1. Najpierw należy wybrać port na którym jest podpięte Pico(GUI powinno samo wykryć, na którym COM'ie jest połączona płytka).
