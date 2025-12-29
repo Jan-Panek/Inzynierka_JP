@@ -1,5 +1,3 @@
-Program pico_serial_driver.py służący do wgrywania kodów na Pico oraz sterowania nimi. Można go włączyć z pulpitu. 
-
 ## Wymagania
 - Windows 10/11
 - Python 3.14 lub nowsze
