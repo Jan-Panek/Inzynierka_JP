@@ -32,8 +32,8 @@ Uruchamiamy poprzez włączenie skryptu **start_GUI.bat**.
 - pip not found → przeinstalować Python z zaznaczonym Path 
 
 ## Opis programów:
-main_TDC.py program dla ćwiczenia 1 i 2  
-main_Vernier_TDC.py program dla ćwiczenia 3 
+main_TDC.py - program główny dla ćwiczeń 1-3  
+pico_serial_driver.py - program z interfejsem do sterowania Raspberry Pi Pico 
 
 
 
